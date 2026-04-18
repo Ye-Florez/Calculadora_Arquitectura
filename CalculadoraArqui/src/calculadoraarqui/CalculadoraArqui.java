@@ -13,20 +13,32 @@ public class CalculadoraArqui {
     String operador1;
     String operador2;
     char operacion;
-    int tipoSistema;  //10=Decimal, 2=Binario, 16=Hexa, 8=Octal
+    int [] tipoSistema = {10, 2, 16, 8};  //10=Decimal, 2=Binario, 16=Hexa, 8=Octal
+    int sistema;
 
     public CalculadoraArqui(){
         
     }
-    public CalculadoraArqui(String operador1, String operador2, int tipoSistema, char operacion) {
+    public CalculadoraArqui(String operador1, String operador2, int sistema, char operacion) {
         this.operador1 = operador1;
         this.operador2 = operador2;
-        this.tipoSistema = tipoSistema;
+        if(esSistema(sistema))
+            this.sistema = sistema;
+        else
+            throw new IllegalArgumentException("sistema no valido: "+ sistema);
         this.operacion = operacion;
     }
     
+    public boolean esSistema(int sistema){
+        for(int i=0;i<tipoSistema.length;i++){
+            if(tipoSistema[i]==sistema)return true;
+        }
+        return false;
+    }
     
     public int conversorDecimal(String num, int tipoSistema){
+        if(tipoSistema == 10)return Integer.parseInt(num);
+        
         char [] num2 = num.toCharArray();
         
         int resultado = 0;
@@ -68,10 +80,10 @@ public class CalculadoraArqui {
     }
     
     public String operar(char operacion){
-         System.out.println("DEBUG - op1: " + operador1 + " op2: " + operador2 + " base: " + tipoSistema);
+         System.out.println("DEBUG - op1: " + operador1 + " op2: " + operador2 + " base: " + sistema);
          
-        int a = conversorDecimal(operador1, tipoSistema);
-        int b = conversorDecimal(operador2, tipoSistema);
+        int a = conversorDecimal(operador1, sistema);
+        int b = conversorDecimal(operador2, sistema);
         
         System.out.println("DEBUG - a: " + a + " b: " + b);
         int resultado = 0;
@@ -85,7 +97,7 @@ public class CalculadoraArqui {
         }
         //throw new IllegalArgumentException ("Operación no válida");
         
-        return conversorBase(resultado, tipoSistema);
+        return conversorBase(resultado, sistema);
     }
     
 }

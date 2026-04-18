@@ -18,9 +18,19 @@ public class Main {
         do{
             System.out.println("=== Calculadora Multi-Base ===");
             System.out.println("Sistema: 10=Decimal  2=Binario  16=Hexadecimal  8=Octal");
-            System.out.print("Elige sistema: ");
-            int sistema = sc.nextInt();
-
+            int sistema = 0;
+            boolean sistemaValido = false;
+            do {
+                System.out.print("Elige sistema: ");
+                sistema = sc.nextInt();
+                CalculadoraArqui temp = null;
+                try {
+                    temp = new CalculadoraArqui("0", "0", sistema, '+');
+                    sistemaValido = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Sistema no valido. Por favor ingrese: 2, 8, 10 o 16");
+                }
+            } while (!sistemaValido);
             System.out.print("Operando 1: ");
             String op1 = sc.next();
 
@@ -33,10 +43,10 @@ public class Main {
             CalculadoraArqui calc = new CalculadoraArqui(op1, op2, sistema, operacion);
             String resultado = calc.operar(operacion);
             System.out.println("Resultado: " + resultado); 
-            
+                
             System.out.print("\n¿Desea realizar otra operación? (SI/NO): ");
             continuar = sc.next().toLowerCase();
-            
+
         }while(continuar.equals("si") || continuar.equals("s"));
         
         System.out.println("¡Hasta luego!");
