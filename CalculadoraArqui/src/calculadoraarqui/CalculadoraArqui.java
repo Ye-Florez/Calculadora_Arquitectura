@@ -41,6 +41,16 @@ public class CalculadoraArqui {
         return resultado;
     } 
     
+    public String conversorBase (int num, int tipoSistema){
+        String resultado = "";
+        while(num >0){
+            int residuo = num % tipoSistema;
+            //System.out.println(caracterDigito(residuo));
+            resultado = caracterDigito(residuo) + resultado; 
+            num = num / tipoSistema;
+        }
+        return resultado.length() == 0 ? "0" : resultado;
+    }
     
     private int valorDigito(char c){
       if(c >= '0' && c <= '9') return c - '0';
@@ -58,7 +68,24 @@ public class CalculadoraArqui {
     }
     
     public String operar(char operacion){
-        return;
+         System.out.println("DEBUG - op1: " + operador1 + " op2: " + operador2 + " base: " + tipoSistema);
+         
+        int a = conversorDecimal(operador1, tipoSistema);
+        int b = conversorDecimal(operador2, tipoSistema);
+        
+        System.out.println("DEBUG - a: " + a + " b: " + b);
+        int resultado = 0;
+       
+        if(operacion == '+') resultado = a + b;
+        if(operacion == '-') resultado = a - b;
+        if(operacion == '*') resultado = a * b;
+        if(operacion == '/') {
+            if(b == 0) throw new ArithmeticException("División entre cero");
+            resultado = a / b;
+        }
+        //throw new IllegalArgumentException ("Operación no válida");
+        
+        return conversorBase(resultado, tipoSistema);
     }
     
 }
