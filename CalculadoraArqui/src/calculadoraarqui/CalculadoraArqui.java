@@ -12,6 +12,7 @@ public class CalculadoraArqui {
     
     String operador1;
     String operador2;
+    char [] operaciones = {'+','-','*','/'};
     char operacion;
     int [] tipoSistema = {10, 2, 16, 8};  //10=Decimal, 2=Binario, 16=Hexa, 8=Octal
     int sistema;
@@ -22,16 +23,20 @@ public class CalculadoraArqui {
     public CalculadoraArqui(String operador1, String operador2, int sistema, char operacion) {
         this.operador1 = operador1;
         this.operador2 = operador2;
-        if(esSistema(sistema))
-            this.sistema = sistema;
-        else
-            throw new IllegalArgumentException("sistema no valido: "+ sistema);
+        this.sistema = sistema;
         this.operacion = operacion;
     }
     
     public boolean esSistema(int sistema){
         for(int i=0;i<tipoSistema.length;i++){
             if(tipoSistema[i]==sistema)return true;
+        }
+        return false;
+    }
+    
+    public boolean esOperacion(char operacion){
+        for(int i=0;i<operaciones.length;i++){
+            if(operaciones[i]==operacion)return true;
         }
         return false;
     }
