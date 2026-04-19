@@ -9,6 +9,7 @@ import java.util.Scanner;
 /**
  *
  * @author Yelitz flórez
+ * @author Karol Solano
  */
 public class Main {
     
@@ -31,8 +32,17 @@ public class Main {
                 }
             } while (!sistemaValido);
             
-            System.out.print("Operando 1: ");
-            String op1 = sc.next();
+            String op1 = " ";
+            boolean digitosSistemaValido = false;
+            do {
+                System.out.print("Operando 1: ");
+                op1 = sc.next();
+                try {
+                    digitosSistemaValido = temp.sonDigitosSistema(op1, sistema);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("no es un numero del sistema ingresado anteriormente");
+                }
+            } while(!digitosSistemaValido);
 
             char operacion = ' ';
             boolean operacionValida = false;
@@ -46,8 +56,17 @@ public class Main {
                 }
             } while (!operacionValida);
 
-            System.out.print("Operando 2: ");
-            String op2 = sc.next();
+            String op2 = " ";
+            boolean digitosSistemaValido2 = false;
+            do {
+                System.out.print("Operando 2: ");
+                op2 = sc.next();
+                try {
+                    digitosSistemaValido2 = temp.sonDigitosSistema(op2, sistema);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("no es un numero del sistema ingresado anteriormente");
+                }
+            } while(!digitosSistemaValido2);
 
             CalculadoraArqui calc = new CalculadoraArqui(op1, op2, sistema, operacion);
             String resultado = calc.operar(operacion);

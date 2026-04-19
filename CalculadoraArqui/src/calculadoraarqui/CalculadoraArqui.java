@@ -7,6 +7,7 @@ package calculadoraarqui;
 /**
  *
  * @author Yelitz flórez
+ * @author Karol Solano
  */
 public class CalculadoraArqui {
     
@@ -39,6 +40,20 @@ public class CalculadoraArqui {
             if(operaciones[i]==operacion)return true;
         }
         return false;
+    }
+    
+    public boolean sonDigitosSistema(String num, int tipoSistema){
+        char [] n = num.toCharArray();
+        
+        for(int i=0;i<n.length;i++){
+            int digito = valorDigito(n[i]);
+            if(tipoSistema==2 && (digito<0 || digito>1))return false;
+            else if(tipoSistema==8 && (digito<0 || digito>7))return false;
+            else if(tipoSistema==10 && (digito<0 || digito>9))return false;
+            else if(tipoSistema==16 && (digito<0 || digito>15))return false;
+        }
+        
+        return true;
     }
     
     public int conversorDecimal(String num, int tipoSistema){
